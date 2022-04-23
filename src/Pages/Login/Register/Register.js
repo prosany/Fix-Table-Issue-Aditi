@@ -1,12 +1,14 @@
 import { Container, Grid, Typography, TextField, Button, CircularProgress, Alert } from "@mui/material";
-import React, { useState } from "react";
+import { Box } from "@mui/system";
+import { useState } from "react";
+import * as React from 'react';
 import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import useAuth from "../../../hooks/useAuth";
 import studentLogin from "../../../images/studentLogin.png";
 
-
 const Register = () => {
     const [loginData, setLoginData] = useState({})
+    const [error, setError] = useState('');
     const history = useHistory();
     const { user, registerUser, isLoading, authError } = useAuth();
 
@@ -20,13 +22,24 @@ const Register = () => {
     }
 
     const handleRegisterSubmit = e => {
+        e.preventDefault();
+        /*  if (loginData.password.length < 6) {
+             setError('Password Must be at least 6 characters long');
+             return;
+         }
+  */
+        if (!/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6}$/.test(loginData.password)) {
+            setError('Password Must contain 1 upper case, 1 lower case, 1 special character,1 digit & 6 characters long');
+            return;
+        }
+
         if (loginData.password !== loginData.conpassword) {
             alert("your password didn't match!!!");
             return;
         }
         registerUser(loginData.email, loginData.password, loginData.name, history);
 
-        e.preventDefault();
+
     }
     return (
         <Container>
@@ -71,9 +84,16 @@ const Register = () => {
                             onBlur={handleOnBlur}
                             variant="standard" />
 
+
+
                         <Button sx={{ width: '75%', m: 3 }}
                             type="submit" variant="contained">Register
                         </Button>
+
+                        <Typography component="div" variant="body1">
+                            <Box sx={{ color: 'success' }}>{error}</Box>
+                        </Typography>
+
                         <NavLink
                             style={{ textDecoration: 'none' }}
                             to='/login'>

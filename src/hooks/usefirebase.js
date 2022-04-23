@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, getIdToken, signOut, } from "firebase/auth";
 
 //initialize firebase app
 initializeFirebase();
@@ -8,6 +8,9 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
+    const [admin, setAdmin] = useState(false);
+    const [token, setToken] = useState('');
+    const [teacher, setTeacher] = useState(false);
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
@@ -42,9 +45,10 @@ const useFirebase = () => {
         // console.log(email, password);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const destination = location?.state?.from || 'dashboard'
-                history.push(destination);
                 setAuthError('');
+                const destination = location?.state?.from || '/';
+                history.replace(destination);
+
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -62,7 +66,7 @@ const useFirebase = () => {
                 saveUser(user.email, user.displayName, 'PUT');
 
                 setAuthError('');
-                const destination = location?.state?.from || 'dashboard'
+                const destination = location?.state?.from || '/';
                 history.replace(destination);
             }).catch((error) => {
                 setAuthError(error.message);
@@ -75,6 +79,10 @@ const useFirebase = () => {
         const unsubscribed = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                getIdToken(user)
+                    .then(idToken => {
+                        setToken(idToken);
+                    })
             } else {
                 setUser({})
             }
@@ -82,6 +90,18 @@ const useFirebase = () => {
         });
         return () => unsubscribed;
     }, [])
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => setTeacher(data.teacher))
+    }, [user.email])
 
     const logout = () => {
         setIsLoading(true);
@@ -109,6 +129,9 @@ const useFirebase = () => {
 
     return {
         user,
+        admin,
+        teacher,
+        token,
         isLoading,
         registerUser,
         loginUser,
