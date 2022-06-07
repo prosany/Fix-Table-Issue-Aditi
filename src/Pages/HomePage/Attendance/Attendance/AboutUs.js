@@ -3,12 +3,13 @@ import Navigation from "../../../shared/Navigation/Navigation";
 
 // import Navigation from "../../shared/Navigation/Navigation";
 
-const Attendance = () => {
+const AboutUs = () => {
     return (
         <div>
             <Navigation></Navigation>
-            <h2>This is Attendance Room</h2>
+            <h2>Here is About Us Section</h2>
+
         </div>
     );
 };
-export default Attendance;
+export default AboutUs;

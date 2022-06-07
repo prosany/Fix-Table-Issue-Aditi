@@ -9,10 +9,10 @@ import {
 import Home from "./Pages/HomePage/Home/Home";
 import Login from './Pages/Login/Login/Login';
 import Register from './Pages/Login/Register/Register';
-import Attendance from './Pages/HomePage/Attendance/Attendance/Attendance';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
 import PrivateRoute from './Pages/Login/privateRoute/privateRoute';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
+import AboutUs from './Pages/HomePage/Attendance/Attendance/AboutUs';
 
 function App() {
   return (
@@ -23,11 +23,11 @@ function App() {
             <Route path="/home">
               <Home />
             </Route>
-            <PrivateRoute path="/attendance">
-              <Attendance />
-            </PrivateRoute>
             <PrivateRoute path="/dashboard">
               <Dashboard />
+            </PrivateRoute>
+            <PrivateRoute path="/aboutus">
+              <AboutUs />
             </PrivateRoute>
             <Route path="/login">
               <Login />

@@ -98,7 +98,7 @@ const useFirebase = () => {
     }, [user.email])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`http://localhost:5000/users/teacher/${user.email}`)
             .then(res => res.json())
             .then(data => setTeacher(data.teacher))
     }, [user.email])

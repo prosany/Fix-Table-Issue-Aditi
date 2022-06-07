@@ -12,7 +12,7 @@ const CampusFacility = (props) => {
     return (
         <Grid item xs={4} sm={4} md={4} >
 
-            <Card sx={{ minWidth: 275, border: 2, borderColor: ' #5d4037', borderRadius: 3, boxShadow: 3, boxShadow: "0 3px 6px 3px lightgreen" }}>
+            <Card sx={{ minWidth: 275, border: 2, borderColor: ' #5d4037', borderRadius: 3, boxShadow: 3, boxShadow: "0 3px 6px 9px lightgreen", py: 1 }}>
                 <CardMedia
                     component="img"
                     style={{ width: 'auto', height: '90px', margin: '0 auto' }}

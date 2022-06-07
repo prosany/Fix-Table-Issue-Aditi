@@ -23,11 +23,11 @@ const Register = () => {
 
     const handleRegisterSubmit = e => {
         e.preventDefault();
-        /*  if (loginData.password.length < 6) {
-             setError('Password Must be at least 6 characters long');
-             return;
-         }
-  */
+        if (loginData.password.length < 6) {
+            setError('Password Must be at least 6 characters long');
+            return;
+        }
+
         if (!/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6}$/.test(loginData.password)) {
             setError('Password Must contain 1 upper case, 1 lower case, 1 special character,1 digit & 6 characters long');
             return;

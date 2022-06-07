@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import { Button, Alert } from "@mui/material";
 
-const AddTeacher = () => {
+const AddTeacher = ({ course, setCourse }) => {
 
     const [email, setEmail] = useState('');
+    // const [course, setCourse] = useState('');
     const [success, setSuccess] = useState(false);
 
     const handleOnBlur = e => {
         setEmail(e.target.value);
     }
+
+    const handleOnCourse = e => {
+        setCourse(e.target.value);
+    }
+
+
     const handleTeacherSubmit = e => {
         const user = { email };
         fetch('http://localhost:5000/users/addTeacher', {
@@ -31,6 +38,8 @@ const AddTeacher = () => {
         e.preventDefault()
     }
 
+
+
     return (
         <div>
 
@@ -41,12 +50,22 @@ const AddTeacher = () => {
                     sx={{ width: '50%' }}
                     label="Email"
                     type='email'
+                    name='email'
                     onBlur={handleOnBlur}
                     variant="standard" />
                 <Button type='submit' variant='contained'>Add Teacher</Button>
             </form>
             {success && <Alert severity="success"  >Add Teacher successfully!!! </Alert>}
+            <br></br>
             <h2>Courses: </h2>
+            <TextField
+                sx={{ width: '40%' }}
+                label="Course"
+                // type='email'
+                name='courseName'
+                onBlur={handleOnCourse}
+                variant="standard" />
+            <Button type='submit' variant='contained'>Add Course</Button>
         </div>
     );
 };

@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+// import IconButton from '@mui/material/IconButton';
+// import MenuIcon from '@mui/icons-material/Menu';
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
@@ -16,19 +16,20 @@ const Navigation = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
+                    {/* <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        <MenuIcon /> */}
+                    {/* </IconButton> */}
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 2 }}>
                         School Management
                     </Typography>
-                    <Link to="/attendance"><Button color="inherit" sx={{ color: 'white' }}>Attendance</Button></Link>
+                    <Link to="/aboutus"><Button color="inherit" sx={{ color: 'white' }}>AboutUs</Button></Link>
+
                     {
                         user?.email ?
                             <Box>
@@ -39,9 +40,10 @@ const Navigation = () => {
                             <NavLink to="/login"><Button color="inherit" sx={{ color: 'white' }}>Login</Button></NavLink>
                     }
 
+
                 </Toolbar>
             </AppBar>
-        </Box>
+        </Box >
     );
 };
 
