@@ -31,8 +31,8 @@ const AttendanceTable = () => {
 
 
     function handleChk() {
-        let elem = document.getElementById("select");
-        setTotalSelectedCheckboxes(elem.querySelectorAll('input[type=checkbox]:checked').length);
+        // let elem = document.getElementById("select");
+        setTotalSelectedCheckboxes(document.querySelectorAll('input[type=checkbox]:checked').length);
     }
     React.useEffect(() => {
 
